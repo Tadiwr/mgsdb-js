@@ -1,8 +1,8 @@
-import { Student } from "../entities/student";
+import { StudentInfo } from "../entities/student_info";
 
 export interface StudentService {
 
-    getStudent() : Promise<Student>
+    getStudent() : Promise<StudentInfo>
     addStudent() : Promise<DbResult>
 
 }
