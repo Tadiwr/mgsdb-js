@@ -1,7 +1,3 @@
-/**
- * An Entity Represents all the info about a student that is needed
- * for them to be registered into the School Database
- */
 export class Student {
     
     student_id : number;
@@ -32,4 +28,18 @@ export class Student {
         this.phone_number = phone_number;
         this.email = email;
     }
+}
+
+
+export const fromJson = (data : any) : Student => {
+    return new Student(
+        data["id"],
+        data["firtname"],
+        data["surname"],
+        data["dob"],
+        data["gender"],
+        data["form"],
+        data["phone_number"],
+        data["email"]
+    )
 }
