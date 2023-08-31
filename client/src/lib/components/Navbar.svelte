@@ -6,8 +6,8 @@
 <main>
     <div class="nav-items">
         <Link title={"Home"} path={pathUrls.home}/>
+        <Link title={"Search"}  path={pathUrls.getStudent}/>
         <Link title={"Add Student" } path={pathUrls.addStudent}/>
-        <Link title={"Get Students"}  path={pathUrls.getStudent}/>
     </div>
 </main>
 
