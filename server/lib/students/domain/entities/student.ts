@@ -8,8 +8,10 @@ export class Student {
     firstname : string;
     surname : string;
     dob : Date;
+    phone_number : string;
     gender : string;
     form : number;
+    email : string
 
     constructor(
         id : number,
@@ -17,7 +19,9 @@ export class Student {
         surname : string,
         dob : Date,
         gender : string,
-        form : number
+        form : number,
+        phone_number : string,
+        email : string
     ) {
         this.student_id = id;
         this.firstname = firstname;
@@ -25,5 +29,7 @@ export class Student {
         this.dob = dob;
         this.gender = gender;
         this.form = form;
+        this.phone_number = phone_number;
+        this.email = email;
     }
 }

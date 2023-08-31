@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mysql = require('mysql2')
+const model = require('../lib/students/data/model/student_model.js')
 
 const db = mysql.createConnection({
   host : "localhost",
@@ -10,26 +11,27 @@ const db = mysql.createConnection({
 })
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  db.connect((err) => {
-    if(err) {
-      res.statusCode = 500;
-      res.send("There was an error connecting to the database")
-    } else {
-      res.send("All good brother zvaita")
-    }
-  })
-});
-
 router.get("/students", (req, res, next) => {
   db.query('SELECT * FROM student_info', (err, data, meta) => {
-    res.send(data)
+    if(err) {
+      console.log(err);
+      res.send("Internal Server Error 🤕")
+    } else {
+      res.send(data)
+    }
   })
 })
 
 router.get("/students/:id", (req, res, next) => {
-  db.query(`SELECT * FROM student_info WHERE student_id=${req.params.id}`, (err, data, meta) => {
-    res.send(data)
+  const sqlStr = `SELECT * FROM student_info WHERE student_id=${req.params.id}`;
+
+  db.query(sqlStr, (err, data, meta) => {
+    if(err) {
+      console.log(err);
+      res.send("Internal Server Error 🤕")
+    } else {
+      res.send(data)
+    }
   })
 })
 
@@ -41,7 +43,12 @@ router.get("/students/form/:form_number", (req, res, next) => {
   `;
 
   db.query(queryStr, (err, data, meta) => {
-    res.send(data)
+    if(err) {
+      console.log(err);
+      res.send("Internal Server Error 🤕")
+    } else {
+      res.send(data)
+    }
   })
 
 })
@@ -60,7 +67,12 @@ router.get("/students/gender/:gender", (req, res, next) => {
     `;
 
     db.query(queryStr, (err, data, meta) => {
-      res.send(data)
+      if(err) {
+        console.log(err);
+        res.send("Internal Server Error 🤕")
+      } else {
+        res.send(data)
+      }
     })
 
   }
@@ -81,6 +93,52 @@ router.get("/students/name/:name", (req, res, next) => {
    res.send(data)
   })
 
+})
+
+router.post("/students/add", (req, res, next) => {
+  console.log(req.body);
+  const dataModel = model.StudentModel.fromJson(req.body)
+
+  db.query(dataModel.toSqlStatement(), (err, data, meta) => {
+    if(err) {
+      console.log(err);
+      res.send("Internal Server Error 🤕")
+    } else {
+      res.send(data)
+    }
+  })
+})
+
+router.put("/students/update/", (req, res, next) => {
+  console.log(req.body);
+  const dataModel = model.StudentModel.fromJson(req.body)
+
+  db.query(dataModel.getUpdateSql(), (err, data, meta) => {
+    if(err) {
+      console.log(err);
+      res.send("Internal Server Error 🤕")
+    } else {
+      res.send(data)
+    }
+  })
+})
+
+router.delete('/students/delete/:id', (req, res, next) => {
+  const student_id = req.params.id;
+
+  const tableName = 'student_info';
+  const sqlStr = `
+    DELETE FROM ${tableName}
+    WHERE student_id = ${student_id}
+  `
+
+  db.query(sqlStr, (err, data, meta) => {
+    if(err) {
+      console.log(err);
+      res.send("Internal Server Error 🤕")
+    }
+    res.send(data)
+  })
 })
 
 module.exports = router;
