@@ -1,56 +1,29 @@
-import { Gender, StudentInfo as StudentInfo } from "./student_info";
-import { StudentPayment } from "./student_payment";
 /**
- * Represents all the info about a student that is needed
+ * An Entity Represents all the info about a student that is needed
  * for them to be registered into the School Database
  */
 export class Student {
-    studentId : string;
-    firstName : string;
+    
+    student_id : number;
+    firstname : string;
     surname : string;
     dob : Date;
-    gender : Gender
-    classID : string;
-    studentPayment : StudentPayment;
+    gender : string;
+    form : number;
 
     constructor(
-        classID : string,
-        studentId : string,
-        firstName : string,
+        id : number,
+        firstname : string,
         surname : string,
         dob : Date,
-        gender : Gender,
-        paymentStatus? : StudentPayment
+        gender : string,
+        form : number
     ) {
-        this.classID = classID;
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.surname = surname;
+        this.student_id = id;
+        this.firstname = firstname;
+        this.surname = surname
         this.dob = dob;
         this.gender = gender;
-
-        if(paymentStatus == undefined) {
-            this.studentPayment = StudentPayment.fromDefault(this.studentId)
-        } else {
-            this.studentPayment = paymentStatus
-        }
+        this.form = form;
     }
-
-    
-    public get studentInfo() : StudentInfo {
-        return new StudentInfo(
-            this.studentId,
-            this.firstName,
-            this.surname,
-            this.dob,
-            this.gender
-        )
-    }
-
-    
-    public get paymentStatus() : StudentPayment {
-        return this.studentPayment 
-    }
-    
-    
 }
