@@ -8,5 +8,6 @@ export const studentsDB = mysql.createConnection({
     database : "students"
 })
 
+
 // Connecting to tables
 // Insert to a table
