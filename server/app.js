@@ -10,7 +10,6 @@ var authRouter = require('./routes/auth');
 
 var app = express();
 
-server.use(express.static("./public"))
 server.use(logger('dev'));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
