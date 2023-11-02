@@ -10,7 +10,7 @@ const db = mysql.createConnection({
   database : "students"
 })
 
-/* GET users listing. */
+/* GET students' listing. */
 router.get("/students", (req, res, next) => {
   db.query('SELECT * FROM student_info', (err, data, meta) => {
     if(err) {
@@ -83,14 +83,15 @@ router.get("/students/gender/:gender", (req, res, next) => {
 router.get("/students/name/:name", (req, res, next) => {
 
   const name = req.params.name;
-
+  
   const queryStr = `
-    SELECT * FROM student_info
-    WHERE firstname LIKE '${name}%' OR surname LIKE '${name}%'
+      SELECT * FROM student_info
+      WHERE firstname LIKE '${name}%'
+      OR surname LIKE '${name}%'
   `;
 
   db.query(queryStr, (err, data, meta) => {
-   res.send(data)
+      res.send(data)
   })
 
 })

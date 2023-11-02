@@ -1,5 +1,4 @@
 var express = require('express');
-var cors = require('cors')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -11,24 +10,22 @@ var authRouter = require('./routes/auth');
 
 var app = express();
 
-app.use(cors({
-    // CORS OPTIONS HERE
+server.use(logger('dev'));
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(cookieParser());
+server.use(express.static(path.join(__dirname, 'public')));
 
-    // ONLY ALLOWS REQUESTS FROM  PORT 5173 
-    // DURING DEVELOPEMENT
-    "origin": 'http://localhost:5173',
-    "optionsSuccessStatus": 200
-}))
+// https://mgsdb.com/
+server.use('/', indexRouter);
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// https://mgsdb.com/users
+server.use('/users', usersRouter);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api', apiRouter);
-app.use('/auth', authRouter);
+// https://mgsdb.com/api
+server.use('/api', apiRouter);
 
-module.exports = app;
+// https://mgsdb.com/auth
+server.use('/auth', authRouter);
+
+module.exports = server;

@@ -3,7 +3,7 @@ export class Student {
     student_id : number;
     firstname : string;
     surname : string;
-    dob : Date;
+    dob : string;
     phone_number : string;
     gender : string;
     form : number;
@@ -13,7 +13,7 @@ export class Student {
         id : number,
         firstname : string,
         surname : string,
-        dob : Date,
+        dob : string,
         gender : string,
         form : number,
         phone_number : string,
@@ -28,13 +28,26 @@ export class Student {
         this.phone_number = phone_number;
         this.email = email;
     }
+
+    public static empty() : Student{
+        return new Student(
+            -1,
+            "",
+            "",
+            "",
+            "",
+            0,
+            "",
+            ""
+        )
+    }
 }
 
 
 export const fromJson = (data : any) : Student => {
     return new Student(
-        data["id"],
-        data["firtname"],
+        data["student_id"],
+        data["firstname"],
         data["surname"],
         data["dob"],
         data["gender"],

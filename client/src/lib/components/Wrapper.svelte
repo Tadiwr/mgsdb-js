@@ -1,8 +1,9 @@
 <script lang="ts" >
     import AddStudent from "../page/AddStudent.svelte";
     import GetStudents from "../page/GetStudents.svelte";
-import Home from "../page/Home.svelte";
-import pathUrls, { urlStore } from "../stores";
+    import Home from "../page/Home.svelte";
+    import StudentInfo from "../page/Student_info.svelte";
+    import pathUrls, { urlStore } from "../stores";
 
     $: currentPath = pathUrls.home;
 
@@ -19,6 +20,8 @@ import pathUrls, { urlStore } from "../stores";
         <AddStudent/>
     {:else if currentPath == pathUrls.getStudent}
         <GetStudents/>
+    {:else if currentPath = pathUrls.studentInfo}
+        <StudentInfo/>
     {:else}
         <h1>Page Not Found 🤕</h1>
     {/if}

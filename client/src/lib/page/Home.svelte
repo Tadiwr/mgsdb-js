@@ -18,11 +18,5 @@
 </script>
 <main>
     <h1>Home</h1>
-
-    {#await usecase.callJson()}
-        <p>Loading Data....</p>
-    {:then data}
-
-    <Table data_columns={columns} rows={data} />
-    {/await}
 </main>
+
