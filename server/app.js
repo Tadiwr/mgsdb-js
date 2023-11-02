@@ -1,4 +1,4 @@
-const express = require('express');
+var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,7 +8,7 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 var authRouter = require('./routes/auth');
 
-const server = express();
+var app = express();
 
 server.use(logger('dev'));
 server.use(express.json());
